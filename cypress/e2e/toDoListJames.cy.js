@@ -18,14 +18,15 @@ describe("To Do List James funkcionalumas", () => {
     });
 
     // patikrinti ar input laukelyje atvaizduojamas tekstas 'What need's to be done?' (pastaba: tekstas su klaida)
-    it('input tekstas "What needs to be done?"', () => {
+    it('Input tekstas "What needs to be done?"', () => {
       cy.visit("https://todolist.james.am/#/");
       cy.get("input.new-todo")
         .should("have.attr", "placeholder", "What need's to be done?")
         .should("be.visible");
 
       //kitas kodo variantas
-      cy.get('input[placeholder="What need\'s to be done?"]').should("exist");
+      cy.get('input.new-todo[placeholder="What need\'s to be done?"]').should('exist');
+    cy.get('input.new-todo[placeholder="What need\'s to be done?"]').should('be.visible');
     });
 
     //patikrinti ar pridėjus kelias užduotis, užduočių sąrašas nėra tuščias
