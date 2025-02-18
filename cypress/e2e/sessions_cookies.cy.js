@@ -5,6 +5,7 @@
 //4. musu rasomas testas tures buti prisijunges prie svetaines, atsiminti kad jis yra prisijunges
 //5. Kaip tas pats funkcionalumas yra atvaizduojamas prisijungusiam ir neprisijungusiam vartotojui
 
+
 //Prisijungimo atsiminmas(sesijos isaugojimas)
 //Sesija - serverio atminties vieta, kur svetainė gali išsaugoti informaciją
 //Cookie - vieta vartotojo kompiuteryje, kur svetainė gali išsaugoti informaciją
@@ -17,7 +18,7 @@
 describe("To Do List James funkcionalumas", () => {
   context("Cookies", () => {
     it("Ar svetaine leidzia sukurti cookies?", () => {
-      cy.visit("https://todolist.james.am/#/");
+      cy.visit('https://todolist.james.am/#/');
       cy.setCookie("test", "test");
       cy.getCookie("test").should("exist");
     });
@@ -63,11 +64,38 @@ describe("To Do List James funkcionalumas", () => {
     });
 
     //Cookie testas veikia tik vienoje funkcijoje, i kita nepersiduoda
-    it("Ar randami cookies?", () => {
+    /*it("Ar randami cookies?", () => {
       cy.visit("https://todolist.james.am/#/");
       cy.getCookie("test").should("exist");
       cy.getCookie("test1").should("exist");
       cy.getCookie("test2").should("exist");
-    });
+    });*/
+  });
+
+  context("Sessions", () => {
+    it("Testas su sesija", () => {
+      cy.session('sesija', () => {
+        cy.visit("https://todolist.james.am/#/");
+        cy.get('input.new-todo').type('1 uzduotis{enter}');
+        cy.setCookie("test", "1");
+      })
+      cy.visit("https://todolist.james.am/#/");
+    })
+
+    /*it('Testas be sesijos', () => {
+      cy.visit("https://todolist.james.am/#/");
+      cy.get('input.new-todo').type('2 uzduotis{enter}');
+    })*/
+
+      //beforeeach
+      //cypress komanda tam paciam
+      //galimas ir const/let - bet nepirmenybe
+  });
+
+  it("Netuščias užduočių sąrašas", () => {
+
+    //susikuria sesija kuri turi 3 uzduotis
+    cy.addToDoes('kelios_uzduotys');
+    cy.visit("https://todolist.james.am/#/");
   });
 });

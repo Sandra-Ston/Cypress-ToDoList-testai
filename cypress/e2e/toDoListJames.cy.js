@@ -1,4 +1,12 @@
+
+
 describe("To Do List James funkcionalumas", () => {
+
+  //ivykdoma pries kiekviena testa
+  beforeEach(() => {
+    cy.log('veikia beforeEach')
+  });
+
   context("Header", () => {
     //patikrinti ar <header> elementas atvaizduojamas.
     it("<header> elemento atvaizdavimas", () => {
